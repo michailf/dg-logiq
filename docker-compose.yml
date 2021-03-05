@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  dg-app:
+    build:
+      context:
+        ./app
+    image: dg-logiq:splunk
+    container_name: dg-logiq
+    restart: unless-stopped
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=${DG_PASSWORD}
+      - SPLUNK_APPS_URL=/opt/dg-app/logiq.spl
+      - DG_APP_PATH=/opt/dg-app
+    ports:
+      - ${HTTP_PORT}:8000
+    volumes:
+      - ${DG_HOST_LOGS_ROOT}logiq:/opt/logiq:ro
+      - dg-app:/opt/dg-app
+
+volumes:
+  dg-app:
