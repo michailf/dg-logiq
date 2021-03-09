@@ -17,7 +17,3 @@ services:
       - ${HTTP_PORT}:8000
     volumes:
       - ${DG_HOST_LOGS_ROOT}logiq:/opt/logiq:ro
-      - dg-app:/opt/dg-app
-
-volumes:
-  dg-app:

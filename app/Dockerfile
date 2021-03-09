@@ -1,12 +1,17 @@
-FROM alpine:3.13 AS git-clone
+FROM alpine:3.13 AS gitclone
 
-RUN apk add --no-cache git sudo && git clone https://github.com/hovdb/DGDiag-Splunk-App.git /opt/dg-app
+ENV GITSOURCE=hovdb/DGDiag-Splunk-App
 
-WORKDIR /opt/dg-app
+RUN apk add --no-cache git tar sudo && git clone https://github.com/${GITSOURCE}.git /opt/dg-app
 
-ADD "https://api.github.com/repos/hovdb/DGDiag-Splunk-App/commits" gitcommits.json
+WORKDIR /opt/dg-app/
+
+# This will download the response and check its hash to validate docker image cache
+ADD "https://api.github.com/repos/${GITSOURCE}/commits" gitcommits.json
 
 RUN git config core.filemode false && git config pull.rebase false && git pull origin main
 
+RUN tar -czvf logiq.spl logiq
+
 FROM splunk/splunk:8.1.2
-COPY --from=git-clone /opt/dg-app /opt/dg-app
+COPY --from=gitclone /opt/dg-app/logiq.spl /opt/dg-app/
