@@ -17,7 +17,7 @@ You will have to change ``DG_HOST_LOGS_ROOT`` and ``DG_PASSWORD``
 
 ``DG_PASSWORD`` is the password used by splunk.  Use ``admin`` user when logging in.
 
-``DG_HOST_LOGS_ROOT`` is the local directory where your logs are stored with an ending directory separator.
+``DG_HOST_LOGS_ROOT`` is the local directory where your logs are stored with an ending directory separator.  This is the root directory where ``logiq`` subdirectory must exist.
 
 #### Build and start the container
 
