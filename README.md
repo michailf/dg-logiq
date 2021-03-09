@@ -5,7 +5,7 @@
 #### Check out scripts from Git:
 
 ```
-git clone clone https://github.com/michailf/dg-logiq.git
+git clone https://github.com/michailf/dg-logiq.git
 cd dg-logiq
 ```
 
