@@ -1,6 +1,6 @@
 FROM alpine:3.13 AS gitclone
 
-ENV GITSOURCE=hovdb/DGDiag-Splunk-App
+ENV GITSOURCE=michailf/DGDiag-Splunk-App
 
 RUN apk add --no-cache git tar sudo && git clone https://github.com/${GITSOURCE}.git /opt/dg-app
 
@@ -13,5 +13,5 @@ RUN git config core.filemode false && git config pull.rebase false && git pull o
 
 RUN tar -czvf logiq.spl logiq
 
-FROM splunk/splunk:8.1.2
+FROM splunk/splunk:8.1.3
 COPY --from=gitclone /opt/dg-app/logiq.spl /opt/dg-app/
